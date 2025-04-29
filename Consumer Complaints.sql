@@ -1,4 +1,3 @@
-
 use sqlproject;
 select * from consumercomplaints;
 show columns from consumercomplaints;
@@ -33,3 +32,15 @@ select count(Consumer_Complaint_Narrative) from consumercomplaints where State_N
 select count(Consumer_Complaint_Narrative) from consumercomplaints where State_Name= 'NY' or State_Name='CA'; 
 select * from consumercomplaints where product_name like '%Credit%';
 Select * from consumercomplaints where Issue like "%Late%";
+#-----------------------------------------------------------------------------------
+select count(Consumer_Complaint_Narrative) from consumercomplaints;  #How many total complaints are there in the dataset?
+select distinct(product_name) from consumercomplaints; #List all distinct products mentioned in product_name.
+select count(*) from consumercomplaints where Submitted_via ='Web'; #Count how many complaints were submitted via 'Web'.
+#------------------------------------------------------------------------------------
+select State_Name,count(Complaint_ID) as complaint_count from consumercomplaints group by State_Name ;  #Find the number of complaints from each state.
+select State_Name as top_5_states,count(Complaint_ID) as total_complaint from consumercomplaints group by State_Name order by total_complaint desc limit 5;  #Get the top 5 states with the highest number of complaints.
+select Submitted_via,count(Complaint_ID) as NO_of_complaints from consumercomplaints group by Submitted_via  ; #Find the number of complaints submitted via each channel (Submitted_via).
+#------------------------------------------------------------------------------------
+select monthname(date_recevied) as Month , count(Complaint_ID) as total_complaint_each_month from consumercomplaints group by month(date_recevied),monthname(date_recevied) order by month(date_recevied); #Find the number of complaints received in each month, and show the month name
+select Company,count(complaint_ID) as highest_complaint from consumercomplaints where month(date_recevied)=3 group by Company order by highest_complaint desc limit 3; #Find the top 3 companies with the most complaints filed in March (any year).
+
